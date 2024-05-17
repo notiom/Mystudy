@@ -39,37 +39,24 @@ public:
 //结论：算法思路错误，错例 [1,2,-1]错误
 																				
 //2.官方题解
-	class Solution 
+class Solution 
 {
 public:
     int maxSubArray(vector<int>& nums) 
     {
-        vector<int> sumvec;
-        int n = nums.size();
-        int currentsum = 0;
+        int res = nums[0]; //先将结果定义为第一个元素，如果后面元素都是最大的
+        int sum = 0; //计算当前和
         for(auto const &num : nums)
         {
-            currentsum += num;
-            sumvec.push_back(currentsum);
-        }
-        int left = 0;  // 左指针
-        int right = n - 1;  // 右指针
-        int res = -INT_MAX; //左边最小的值
-        for(int i = 0;i < n;i++)
-        {
-            if(sumvec[i] > sumvec[left])
+            if(sum > 0)
+                sum += num;
+            else
             {
-                continue;
+                sum = num;
             }
-            int maxdis = 0; //两个差值
-            for(int j = i + 1;j < n;j++)
-            {
-                sumvec[left] = sumvec[i];
-                maxdis = sumvec[j] - sumvec[left];
-                res = max(res,maxdis);
-            }
+            res = max(res,sum);
         }
-        return max(res,max(sumvec[0],sumvec[n - 1]));
-    } 
+        return res;
+    }
 };
 //结论：
