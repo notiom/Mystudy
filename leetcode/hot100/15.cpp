@@ -52,9 +52,7 @@ class Solution
 public:
     void rotate(vector<int>& nums, int k) 
     {
-        queue<int> temp; //利用先进先出的性质
-        int n = nums.size();
-        k = k % n;
+        k = k % nums.size();
         reverse(nums.begin(),nums.end()); // 先翻转一次
         reverse(nums.begin(),nums.begin() + k);
         reverse(nums.begin() + k,nums.end());
