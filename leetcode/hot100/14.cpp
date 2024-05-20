@@ -118,3 +118,35 @@ private:
 //结论：通过，在这个例子中要注意
 1.合并相同项时，如果直到最后一个元素都每个都重合，就应该把左边界最小的元素和rightbind push进res并返回
 2.当恰好最后一个元素不重合时，无法进入第二个循环，此时应该把最后一个元素push进res，并将主循环退出	 
+
+//3.改进版代码(将当前元素push进去，如果有重合，在改变该元素的右边界)
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        vector<vector<int>> res; //定义输出结果
+        sort(intervals.begin(),intervals.end(),cmp); //按照第一个元素进行排序
+        int n = intervals.size();
+        for(int i = 0;i < n;i++)
+        {
+            //假设每个元素都不重合，每个元素都遍历
+            //push条件为第一个元素和没有重合的情况
+            if(!res.size() || res.back().at(1) < intervals.at(i).at(0))
+            {
+                res.push_back({intervals.at(i).at(0),intervals.at(i).at(1)});
+            }
+            else
+            {
+                //有元素重合,改变最后一个元素
+                res.back().at(1) = max(res.back().at(1),intervals.at(i).at(1));
+            }
+        }
+        return res;
+    }
+private:
+    static bool cmp(vector<int> &num1,vector<int> &num2)
+    {
+        return num1.at(0) < num2.at(0);
+    }
+};
