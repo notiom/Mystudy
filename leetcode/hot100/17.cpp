@@ -68,3 +68,5 @@ public:
         return isexists;
     }
 };
+//结论：排序使用的时间复杂度为nlog(n),不符合题目要求
+//3.官方题解
