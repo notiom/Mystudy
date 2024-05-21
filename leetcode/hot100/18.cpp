@@ -39,7 +39,77 @@ public:
 //结论：通过
 	
 //2.官方题解
-	
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix)  
+    {
+        int row = matrix.size();
+        int col = matrix.at(0).size();
+        bool row0_flag = false;
+        bool col0_flag = false;
+        // 找第一行是否有0
+        for(int i = 0; i < col; i++)
+        {
+            if(matrix.at(0).at(i) == 0)
+            {
+                row0_flag = true; //说明第0行有0存在，再循环结束后还应该将其置为0
+                break;
+            }
+        }
+        // 找第一列是否有0
+        for(int j = 0;j < row;j++)
+        {
+            if(matrix.at(j).at(0) == 0)
+            {
+                col0_flag = true; //说明第0列有0存在，再循环结束后还应该将其置为0
+                break;
+            }
+        }
+
+        for(int i = 1;i < row;i++)
+        {
+            for(int j = 1;j < col;j++)
+            {
+                if(matrix.at(i).at(j) == 0)
+                {
+                    // 将其行列的元素置为0
+                    matrix.at(i).at(0) = matrix.at(0).at(j) = 0;
+                }
+            }
+        }
+
+        //赋值
+        for(int i = 1;i < row;i++)
+        {
+            for(int j = 1;j < col;j++)
+            {
+                if(matrix.at(0).at(j) == 0 || matrix.at(i).at(0) == 0)
+                {
+                    matrix.at(i).at(j) = 0;
+                }
+            }
+        }
+
+        // 将第一行或者第一列置为0
+        if(row0_flag)
+        {
+            for(int i = 0;i < col;i++)
+            {
+                matrix.at(0).at(i) = 0;
+            }
+        }
+        if(col0_flag)
+        {
+            for(int j = 0;j < row;j++)
+            {
+                matrix.at(j).at(0) = 0;
+            }
+        }
+    }
+};
+//选取了首行和首列作为标志位
+
+//3.简化版
 从左上角遍历处理：行从第0行遍历，列从第1列遍历，思路：第一次循环 1、0行数组的每个元素临时标识该元素所在列是否有0，0列数组的每个元素临时标识该元素所在行是否有0。 2、判断每行的第0列是否为0，有则赋值额外的标识字段，该字段的作用是用于后续对称遍历的时候，赋值所有行的0列是否应该赋值0使用
 
 比如原始数组为 [ [2,1,2,3], [2,1,2,3], [3,0,5,2], [1,3,0,5] ]
@@ -64,28 +134,21 @@ public:
     ]
 class Solution {
 public:
-    void setZeroes(vector<vector<int>>& matrix)  
-    {
+    void setZeroes(vector<vector<int>>& matrix)  {
         bool col0_flag = false;
         int row = matrix.size();
         int col = matrix[0].size();
-        for (int i = 0; i < row; i++) 
-        {
+        for (int i = 0; i < row; i++) {
             if (matrix[i][0] == 0) col0_flag = true;
-            for (int j = 1; j < col; j++) 
-            {
-                if (matrix[i][j] == 0) 
-                {
+            for (int j = 1; j < col; j++) {
+                if (matrix[i][j] == 0) {
                     matrix[i][0] = matrix[0][j] = 0;
                 }
             }
         }
-        for (int i = row - 1; i >= 0; i--) 
-        {
-            for (int j = col - 1; j >= 1; j--) 
-            {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0) 
-                {
+        for (int i = row - 1; i >= 0; i--) {
+            for (int j = col - 1; j >= 1; j--) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
             }
@@ -93,4 +156,4 @@ public:
         }
     }
 };
-//结论：时间复杂度很低
+//结论：时间复杂度很低,情况为将第一行和第一列作为标志位
