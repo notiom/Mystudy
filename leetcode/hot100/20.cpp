@@ -35,3 +35,23 @@ public:
 //结论：通过
 //2.官方题解
 /////////////////////////////
+class Solution 
+{
+public:
+    void rotate(vector<vector<int>>& matrix) 
+    {
+        //0行0列变为0行n - 1列,1行0列0行n - 2列
+        vector<vector<int>> matrix_copy(matrix);
+        int n = matrix.size();
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                matrix_copy.at(j).at(n - 1 - i) = matrix.at(i).at(j);
+            }
+        }
+        //值拷贝
+        matrix = matrix_copy;
+    }
+};
+//结论：通过，同样空间复杂度降低，他直接计算出了索引值，而无需像我这样保存索引值
