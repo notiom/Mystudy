@@ -20,6 +20,13 @@ public:
         // 本题定义两个头节点，当第一次到达nullptr节点时，切换到另一条路
         // 使A和B节点走过的路程一样，那么当都走过max(A,B)时若他们相遇，则该节点是交点
         // 否则当AheB第二次为nullptr时表示链子不相遇
+				// 链表headA的节点总数为a
+				// 链表headB的节点总数为b
+				// 公共尾部的节点总数为c
+				// 对于节点A而言 a的后 a - c个节点为目标
+				// 对于节点B而言b的后 b - c个节点为目标
+				// 既然如此，则想到走两遍，即a + b - c = b + a - c
+				// 
 		if(headA == nullptr || headB == nullptr) return nullptr;
         ListNode* nodeA = headA;
         ListNode* nodeB = headB;
