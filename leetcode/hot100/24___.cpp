@@ -36,3 +36,54 @@ public:
         return true;
     }
 };
+//结论：通过，但是时间复杂度和空间复杂度都是o(n),题目要求o(1)的空间复杂度
+//2利用栈的思想，无需双指针
+class Solution 
+{
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        //思路：利用容器，将链表元素依次放到vector中
+        stack<int> res;
+        ListNode* p = head;
+        while(p!=nullptr)
+        {
+            res.push(p->val);
+            p=p->next;
+        }
+        while(head)
+        {
+            if(head->val != res.top())
+            {
+                return false;
+            }
+            head = head->next;
+            res.pop();
+        }
+        return true;
+    }
+};
+//结论时间复杂度o(n)和空间复杂度
+o(n)									
+	//3.递归比较最后一个和第一个，递归是从函数的最后一层逐层向上比较
+class Solution {
+    ListNode* frontPointer;
+public:
+    bool recursivelyCheck(ListNode* currentNode) {
+        if (currentNode != nullptr) {
+            if (!recursivelyCheck(currentNode->next)) {
+                return false;
+            }
+            if (currentNode->val != frontPointer->val) {
+                return false;
+            }
+            //该循环只要有一个返回false程序会一直返回false直到结束
+            frontPointer = frontPointer->next;
+        }
+        return true;
+    }
+
+    bool isPalindrome(ListNode* head) {
+        frontPointer = head;
+        return recursivelyCheck(head);
+}；
