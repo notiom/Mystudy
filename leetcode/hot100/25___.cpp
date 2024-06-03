@@ -31,3 +31,21 @@ public:
         return false;
     }
 };
+
+//3.官方题解
+//思路，将其放到一个集合里，如果一直遍历过去发现已经存在，则返回true，否则返回false
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        unordered_set<ListNode*> seen;
+        while (head != nullptr) {
+            if (seen.count(head)) {
+                return true;
+            }
+            seen.insert(head);
+            head = head->next;
+        }
+        return false;
+    }
+};
+
