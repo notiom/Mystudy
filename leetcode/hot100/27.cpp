@@ -56,3 +56,23 @@ public:
 //结论：通过
 
 //2.官方题解
+
+class Solution 
+{
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
+    {
+        //尝试递归
+        if(list1 == nullptr) return list2;
+        if(list2 == nullptr) return list1; //不需要判断他们是否都为0的原因是，如果都为0，那么返回值也是nullptr      
+        if(list1->val < list2->val)
+        {
+            list1->next = mergeTwoLists(list1->next,list2);
+            return list1;
+        }    
+        list2->next = mergeTwoLists(list1,list2->next);
+        return list2;
+    }
+};
+//结论：递归只需要管当前我应该怎样做就可以，即对于第一个工人，我只需要看当前的链子谁小，然后告诉下一个工人，谁应该排第一，体现在代码中的
+// 就是如果链子1小那么将他排在第一个，之后再将第2 - n个工人的工作量接过来，直接返回list1，同理后续也这样，只需要关注当前工作
