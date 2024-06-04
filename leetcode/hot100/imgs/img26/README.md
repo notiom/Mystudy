@@ -1,1 +1,81 @@
-### 1
+### 快慢指针的解法动图
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Sequence Player</title>
+    <style>
+        .controls {
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <img id="image" src="path/to/your/image1.png" alt="Frame 1">
+    </div>
+    <div class="controls">
+        <button id="prev">Previous</button>
+        <button id="play-pause">Play</button>
+        <button id="next">Next</button>
+    </div>
+
+    <script>
+        const imageList = [
+            "image_1.png",
+            "image_2.png",
+            "image_3.png",
+            "image_4.png",
+            "image_5.png",
+            "image_6.png",
+            "image_7.png",
+            "image_8.png",
+            "image_9.png",
+            "image_10.png",
+            "image_11.png",
+            // Add more image paths here
+        ];
+        let currentIndex = 0;
+        let isPlaying = false;
+        let interval;
+
+        const imageElement = document.getElementById('image');
+        const playPauseButton = document.getElementById('play-pause');
+
+        function showImage(index) {
+            imageElement.src = imageList[index];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % imageList.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + imageList.length) % imageList.length;
+            showImage(currentIndex);
+        }
+
+        function playPause() {
+            if (isPlaying) {
+                clearInterval(interval);
+                playPauseButton.textContent = 'Play';
+            } else {
+                interval = setInterval(nextImage, 1000); // Change 1000 to the desired frame interval in milliseconds
+                playPauseButton.textContent = 'Pause';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        document.getElementById('prev').addEventListener('click', prevImage);
+        playPauseButton.addEventListener('click', playPause);
+        document.getElementById('next').addEventListener('click', nextImage);
+    </script>
+</body>
+</html>
