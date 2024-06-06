@@ -18,7 +18,7 @@ file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 #设置c++编译的标准
-set(CMAKE_CXX_STANDARD_17) # 要跟在cmake .. -DCMAKE_CXX_STANDARD=11
+set(CMAKE_CXX_STANDARD 17) # 要跟在cmake .. -DCMAKE_CXX_STANDARD=11
 
 set(EXECUTABLE_OUTPUT_PATH /Users/cds-dn-173/Desktop/xl/code/cpp/StudyCmake/bin) # 设置输出路径
 add_executable(app ${SRC_LIST}) # 使用$符格式化

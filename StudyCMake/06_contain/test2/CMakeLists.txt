@@ -6,7 +6,7 @@ include_directories(${HEADPATH})
 link_directories(${LIBPATH})
 link_libraries(${SORTLIB})
 
-set(CMAKE_CXX_STANDARD_17)
+set(CMAKE_CXX_STANDARD 17)
 
 set(EXECUTABLE_OUTPUT_PATH ${EXECPATH})
 
