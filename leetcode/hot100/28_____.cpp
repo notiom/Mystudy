@@ -94,4 +94,53 @@ public:
 };
 //结论：有一点点屎山代码仍然有改进空间。
 
-//2.----------------
+//2.结合题解改进
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution 
+{
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        ListNode* p1 = l1;
+        ListNode* p2 = l2;
+        ListNode* res = new ListNode(0,nullptr);
+        ListNode* currentSum = res;
+
+        while(p1!=nullptr || p2!=nullptr)
+        {
+            int x = p1 == nullptr? 0 : p1->val;
+            int y = p2 == nullptr? 0 : p2->val;
+            currentSum->val += x + y;
+
+            if(currentSum->val >= 10)
+            {
+                currentSum->val -= 10;
+                currentSum->next = new ListNode(1,nullptr);
+            }
+            else
+            {
+                
+                if((!p1 || !p1->next) && (!p2 || !p2->next)) 
+                {
+                    currentSum->next = nullptr;
+                    break;
+                }
+                currentSum->next = new ListNode(0,nullptr);
+            }
+            currentSum = currentSum->next;
+
+            if(p1!=nullptr) p1 = p1->next;
+            if(p2!=nullptr) p2 = p2->next;
+        }
+        return res;
+    }
+};
