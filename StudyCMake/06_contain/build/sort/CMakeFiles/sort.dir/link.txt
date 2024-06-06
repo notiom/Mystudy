@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc /Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/06_contain/lib/libsort.a CMakeFiles/sort.dir/bubble.cpp.o CMakeFiles/sort.dir/insert.cpp.o CMakeFiles/sort.dir/quick.cpp.o CMakeFiles/sort.dir/select.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib /Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/06_contain/lib/libsort.a

@@ -1,3 +1,0 @@
-/Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/05_Macro/build/CMakeFiles/app.dir
-/Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/05_Macro/build/CMakeFiles/edit_cache.dir
-/Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/05_Macro/build/CMakeFiles/rebuild_cache.dir
