@@ -144,3 +144,40 @@ public:
         return res;
     }
 };
+
+//3.递归
+class Solution 
+{
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        return add(l1, l2, 0);
+    }
+
+    /**
+        返回两个链表相加的头部
+     */
+private:
+    ListNode* add(ListNode* l1, ListNode* l2, int bit) 
+    {
+        if (l1 == nullptr && l2 == nullptr && bit == 0) 
+        {
+            return nullptr;
+        }
+        int val = bit;
+        if (l1 != nullptr) 
+        {
+            val += l1->val;
+            l1 = l1->next;
+        }
+        if (l2 != nullptr) 
+        {
+            val += l2->val;
+            l2 = l2->next;
+        }
+        ListNode* node = new ListNode(val % 10);
+        node->next = add(l1, l2, val / 10);
+        return node;
+    }
+};
+//结论：链表递归很方便
