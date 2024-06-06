@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.15)
 project(hello)
 # 添加方式一，鸡肋
 # add_executable(app add.cpp div.cpp main.cpp mult.cpp sub.cpp)

@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc /Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/06_contain/lib/libcalc.a CMakeFiles/calc.dir/add.cpp.o CMakeFiles/calc.dir/div.cpp.o CMakeFiles/calc.dir/mult.cpp.o CMakeFiles/calc.dir/sub.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib /Users/cds-dn-173/Desktop/xl/code/cpp/Mystudy/StudyCmake/06_contain/lib/libcalc.a
