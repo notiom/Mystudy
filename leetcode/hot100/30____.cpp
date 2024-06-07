@@ -82,3 +82,4 @@ public:
         return post; //将执行交换完成后的post链子返回
     }
 };
+//结论:通过
