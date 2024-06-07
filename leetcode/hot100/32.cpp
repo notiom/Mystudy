@@ -82,3 +82,46 @@ public:
     return vecdeep.at(0);
     }
 };
+//结论：通过
+
+//2.官方题解
+class Solution 
+{
+public:
+    Node* copyRandomList(Node* head) 
+    {
+        //思路2 创建一份完全的节点使其1 -> 1 -> 2 -> 2 -> 3 -> 3
+        //新建一份新链表
+        Node* p = head;
+        //1.在每个原始节点后加一个新节点
+        while(p!=nullptr)
+        {
+            Node* newcopy = new Node(p->val);
+            newcopy->next = p->next;
+            p->next = newcopy;
+            p = newcopy->next;
+        }
+        //2.设置新节点的随机指针
+        p = head;
+        while(p!=nullptr)
+        {
+            if(p->random != nullptr) p->next->random = p->random->next; //新节点的random指针指向旧节点random指向的下一个节点
+            p = p->next->next;
+        }
+
+        //3.新旧分离
+        //创建一个虚拟头节点
+        Node* dummy = new Node(-1);
+        p = head;
+        Node* cur = dummy;
+        while(p!=nullptr)
+        {
+            cur->next = p->next;
+            cur = cur->next; //指向现在的1
+            p->next = cur->next; 
+            p = p->next; //p一直指向原来的2
+        }
+        return dummy->next;
+    }
+};
+//结论:通过，这种解法更新颖，空间复杂度更低
