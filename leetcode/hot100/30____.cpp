@@ -62,3 +62,23 @@ public:
     return res;
     }
 };
+//结论：通过，时间复杂度为o(n),空间复杂度为o(n),通过
+
+//2.官方题解
+//思路:递归，不需要在乎下一级做了什么，只需要在乎我函数的1.返回值2.调用函数做了什么3.终止条件即可
+class Solution 
+{
+public:
+    ListNode* swapPairs(ListNode* head) 
+    {
+        if(head == nullptr || head->next == nullptr)
+        {
+            //当前值为null或者当前值的下一个为null
+            return head;
+        } 
+        ListNode* post = head->next; //指向2
+        head->next = swapPairs(post->next); //让1指向3之后交换的一大堆链子
+        post->next = head;
+        return post; //将执行交换完成后的post链子返回
+    }
+};
