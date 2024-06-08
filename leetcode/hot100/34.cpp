@@ -100,7 +100,7 @@ class Solution
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) 
     {
-        // 使用优先队列,自定义优先队列的3种比较方式
+        // 使用优先队列,自定义优先队列的2种比较方式
         // 方式1.自定义比较函数lamada
         auto cmp = [](const ListNode* a,const ListNode* b) {return a->val > b->val;};
         priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> que(cmp);
@@ -144,7 +144,7 @@ class Solution
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) 
     {
-        // 使用优先队列,自定义优先队列的3种比较方式
+        // 使用优先队列,自定义优先队列的2种比较方式
         //2.自定义结构体比较函数，重载()符
         priority_queue<ListNode*, vector<ListNode*>, Compare> que;
         for(auto iter = lists.begin(); iter != lists.end(); iter++)
@@ -172,49 +172,4 @@ public:
     }
 };
 
-//4.优先队列的第二种比较方式
-struct ListNode 
-{
-     int val;
-     ListNode *next;
-     ListNode() : val(0), next(nullptr) {}
-     ListNode(int x) : val(x), next(nullptr) {}
-     ListNode(int x, ListNode *next) : val(x), next(next) {}
 
-    bool ListNode::operator<(const ListNode* other) const 
-    {  
-    return this->val < other->val;
-    };
- };
-class Solution 
-{
-public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) 
-    {
-        // 使用优先队列,自定义优先队列的3种比较方式
-        //3.在ListNode中，重载<符
-        priority_queue<ListNode*, vector<ListNode*>, greater<ListNode*>> que;
-        for(auto iter = lists.begin(); iter != lists.end(); iter++)
-        {
-            if(*iter!=nullptr) 
-            {
-                que.push(*iter);
-            }
-            
-        }
-        //定义一个虚拟的头节点
-        ListNode* head = new ListNode(-1); 
-        ListNode* p = head;
-        while(!que.empty())
-        {
-            p->next = que.top();
-            que.pop();
-            p = p->next;
-            if(p->next!=nullptr)
-            {
-                que.push(p->next);
-            }
-        }
-        return head->next;
-    }
-};
