@@ -57,3 +57,29 @@ public:
     }
 };
 //结论：通过
+
+//2.官方题解递归
+class Solution 
+{
+public:
+    bool isSymmetric(TreeNode* root) 
+    {
+        // 如果根节点为空，直接返回
+        if (root == nullptr) return true;
+        return isMirror(root->left, root->right);
+    }
+private:
+    bool isMirror(TreeNode* left, TreeNode* right)
+    {
+        //递归的终止条件是两个节点都为空
+		//或者两个节点中有一个为空
+		//或者两个节点的值不相等
+        if(left == nullptr && right == nullptr) return true;
+        if(left == nullptr || right == nullptr) return false;
+        if(left->val != right->val) return false;
+        return isMirror(left->left,right->right) && 
+        isMirror(left->right,right->left);
+    }
+};
+//结论：通过
+//总结:递归不需要知道下一层怎么做，只需要知道当前层怎么做即可
