@@ -52,3 +52,45 @@ public:
 //结论：通过，思考过递归的思路，但是觉得不可行
 
 //2.官方题解
+
+//递归，利用递归深度优先遍历的性质，但是递归的加入层级元素，设置了一个index的变量,将其添加到index索引即所在层的索引然后递归的加入元素
+
+class Solution 
+{
+public:
+    std::vector<std::vector<int>> levelOrder(TreeNode* root) 
+    {
+        if (root == NULL) 
+        {
+            return std::vector<std::vector<int>>();
+        }
+
+        // 用来存放最终结果
+        std::vector<std::vector<int>> res;
+        dfs(1, root, res);
+        return res;
+    }
+
+    void dfs(int index, TreeNode* root, std::vector<std::vector<int>>& res) 
+    {
+        // 假设res是[ [1],[2,3] ]， index是3，就再插入一个空vector放到res中
+        if (res.size() < index) 
+        {
+            res.push_back(std::vector<int>());
+        }
+        // 将当前节点的值加入到res中，index代表当前层，假设index是3，节点值是99
+        // res是[ [1],[2,3] [4] ]，加入后res就变为 [ [1],[2,3] [4,99] ]
+        res[index - 1].push_back(root->val);
+
+        // 递归的处理左子树，右子树，同时将层数index+1
+        if (root->left != NULL) 
+        {
+            dfs(index + 1, root->left, res);
+        }
+        if (root->right != NULL) 
+        {
+            dfs(index + 1, root->right, res);
+        }
+    }
+};
+//结论：这个使用深度优先遍历的方式实现了广度优先遍历
