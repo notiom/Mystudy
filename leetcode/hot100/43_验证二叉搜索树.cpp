@@ -76,3 +76,30 @@ public:
     }
 };
 //结论：通过
+
+//3.官方题解
+class Solution 
+{
+public:
+
+    bool isValidBST(TreeNode* root) 
+    {
+        //中序遍历结束后一定是完全升序排列
+        if(root == nullptr) return true;
+        //到达最后一个元素时，一定会返回true
+        if(!isValidBST(root->left)) return false;
+
+        //判断当前节点是否小于pre，如果小于，说明不满足升序排列
+        if(root->val <= pre)
+        {
+            return false;
+        }
+        pre = root->val;
+
+        //访问右子树
+        return isValidBST(root->right);
+    }
+private:
+    long pre = - LONG_MAX;
+};
+//结论:妙在用了一个前驱节点，来判断是否是完全升序排列
