@@ -174,3 +174,38 @@ public:
 
 };
 //结论：必须要通过递归的调用每一个节点才可以计算完整，因为rootSum函数只能计算以当前节点为根节点的情况
+
+//4.为省略一些不必要的重复计算，使用前缀和，再前序遍历中保存每个前缀和的值，如果再当前节点中有回溯路径恰好为cursum - target存在于
+// 前缀和中，就可以说明是有一条路径存在的
+
+class Solution 
+{
+public:
+    int pathSum(TreeNode* root, int targetSum)
+    {
+        //思路:需要保存前缀和为0的情况，因为如果节点恰好等于targetSum也被算作计算
+        prefix[0] = 1;
+        return dfs(root, 0, targetSum);
+    }
+     int dfs(TreeNode *root, long long curr, int targetSum) {
+        if (!root) {
+            return 0;
+        }
+
+        int ret = 0;
+        curr += root->val;
+        if (prefix.count(curr - targetSum)) {
+            ret = prefix[curr - targetSum];
+        }
+
+        prefix[curr]++;
+        ret += dfs(root->left, curr, targetSum);
+        ret += dfs(root->right, curr, targetSum);
+        prefix[curr]--;
+
+        return ret;
+    }
+
+private:
+    unordered_map<long long, int> prefix;
+};
