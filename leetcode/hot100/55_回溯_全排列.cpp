@@ -144,15 +144,19 @@ output = [1, 2, 3]
             first == len，加入排列：res = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
 */
 //递归的进行交换操作
-class Solution {
+class Solution 
+{
 public:
-    void backtrack(vector<vector<int>>& res, vector<int>& output, int first, int len){
+    void backtrack(vector<vector<int>>& res, vector<int>& output, int first, int len)
+    {
         // 所有数都填完了
-        if (first == len) {
+        if (first == len) 
+        {
             res.emplace_back(output);
             return;
         }
-        for (int i = first; i < len; ++i) {
+        for (int i = first; i < len; ++i) 
+        {
             // 动态维护数组
             swap(output[i], output[first]);
             // 继续递归填下一个数
@@ -161,7 +165,8 @@ public:
             swap(output[i], output[first]);
         }
     }
-    vector<vector<int>> permute(vector<int>& nums) {
+    vector<vector<int>> permute(vector<int>& nums) 
+    {
         vector<vector<int> > res;
         backtrack(res, nums, 0, (int)nums.size());
         return res;
