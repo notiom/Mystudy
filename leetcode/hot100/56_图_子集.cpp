@@ -81,3 +81,33 @@ private:
 //结论：思路太新奇了
 	
 //4.回溯
+
+class Solution 
+{
+public:
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        n = nums.size();
+        vector<int> targets{};
+        subHelper(0,targets,nums);
+        return res;
+    }
+
+    void subHelper(int idx, vector<int> &targets,vector<int>& nums)
+    {
+        this->res.push_back(targets);
+
+        for(int i = idx;i < n;i++)
+        {
+            vector<int> temp = targets;
+            temp.push_back(nums.at(i));
+            subHelper(i + 1,temp,nums);
+        }
+    }
+
+private:
+    vector<vector<int>> res; //定义输出结果
+    int n; //容器大小
+};
+
+//结论：很像迭代的方式但在迭代里递归调用，当最外层的迭代循环结束后，就会自动退回上一步
