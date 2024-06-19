@@ -56,3 +56,116 @@ public:
 //结论:通过,插针法
 
 //2.官方题解
+/*
+具体过程
+假设 nums 为 [1, 2, 3]，我们一步步看这个过程。
+
+初始调用：
+
+first = 0
+output = [1, 2, 3]
+第一次递归层次（first = 0）：
+
+    循环 i 从 0 到 2：
+        i = 0：
+            交换 output[0] 和 output[0]（即不变）：output = [1, 2, 3]
+            递归调用 backtrack(res, output, 1, 3)：
+        i = 1：
+            交换 output[0] 和 output[1]：output = [2, 1, 3]
+            递归调用 backtrack(res, output, 1, 3)：
+        i = 2：
+            交换 output[0] 和 output[2]：output = [3, 2, 1]
+            递归调用 backtrack(res, output, 1, 3)：
+    
+第二次递归层次（first = 1）：
+
+    对于每个 i（0, 1, 2）递归调用的结果：
+    当 output = [1, 2, 3]：
+        i = 1：
+            交换 output[1] 和 output[1]（即不变）：output = [1, 2, 3]
+            递归调用 backtrack(res, output, 2, 3)：
+        i = 2：
+            交换 output[1] 和 output[2]：output = [1, 3, 2]
+            递归调用 backtrack(res, output, 2, 3)：
+            
+    当 output = [2, 1, 3]：
+        i = 1：
+            交换 output[1] 和 output[1]（即不变）：output = [2, 1, 3]
+            递归调用 backtrack(res, output, 2, 3)：
+        i = 2：
+            交换 output[1] 和 output[2]：output = [2, 3, 1]
+            递归调用 backtrack(res, output, 2, 3)：
+            
+    当 output = [3, 2, 1]：
+        i = 1：
+            交换 output[1] 和 output[1]（即不变）：output = [3, 2, 1]
+            递归调用 backtrack(res, output, 2, 3)：
+        i = 2：
+            交换 output[1] 和 output[2]：output = [3, 1, 2]
+            递归调用 backtrack(res, output, 2, 3)：
+    
+第三次递归层次（first = 2）：
+
+    对于每个 i（1, 2）递归调用的结果：
+    当 output = [1, 2, 3]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [1, 2, 3]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3]]
+            
+    当 output = [1, 3, 2]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [1, 3, 2]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3], [1, 3, 2]]
+            
+    当 output = [2, 1, 3]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [2, 1, 3]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3], [1, 3, 2], [2, 1, 3]]
+            
+    当 output = [2, 3, 1]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [2, 3, 1]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1]]
+            
+    当 output = [3, 2, 1]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [3, 2, 1]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1]]
+            
+    当 output = [3, 1, 2]：
+        i = 2：
+            交换 output[2] 和 output[2]（即不变）：output = [3, 1, 2]
+            递归调用 backtrack(res, output, 3, 3)：
+            first == len，加入排列：res = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
+*/
+//递归的进行交换操作
+class Solution {
+public:
+    void backtrack(vector<vector<int>>& res, vector<int>& output, int first, int len){
+        // 所有数都填完了
+        if (first == len) {
+            res.emplace_back(output);
+            return;
+        }
+        for (int i = first; i < len; ++i) {
+            // 动态维护数组
+            swap(output[i], output[first]);
+            // 继续递归填下一个数
+            backtrack(res, output, first + 1, len);
+            // 撤销操作
+            swap(output[i], output[first]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int> > res;
+        backtrack(res, nums, 0, (int)nums.size());
+        return res;
+    }
+};
+//结论：通过，并且是回溯操作，还有一个复原的情况
+
