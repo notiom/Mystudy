@@ -7,8 +7,6 @@ class Solution
 public:
     int search(vector<int>& nums, int target) 
     {
-        //处理特殊情况
-
         //思路：利用双指针的思路比较左边是否严格小于右边
         int left = 0;
         int right = isCompare(nums) - 1;
@@ -49,3 +47,4 @@ private:
         return nums.size() - 1;
     }
 };
+//结论：通过
