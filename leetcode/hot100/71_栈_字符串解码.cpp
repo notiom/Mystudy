@@ -111,4 +111,5 @@ public:
         return pair<int,string>(multi,res);
     }
 };
-// 细节，index处必须使用引用传递
+// 结论: 通过
+// 细节:index处必须使用引用传递
