@@ -260,3 +260,24 @@ var关键字 1.必须在局部作用域内使用 2.必须在定义时初始化 3
 5	public virtual void Remove( object key );
 从 Hashtable 中移除带有指定的键的元素。
 ```
+
+### stack
+```
+1 public virtual void Clear();
+从 Stack 中移除所有的元素。
+
+2	public virtual bool Contains( object obj );
+判断某个元素是否在 Stack 中。
+
+3	public virtual object Peek();
+返回在 Stack 的顶部的对象，但不移除它。
+
+4	public virtual object Pop();
+移除并返回在 Stack 的顶部的对象。
+
+5	public virtual void Push( object obj );
+向 Stack 的顶部添加一个对象。
+
+6	public virtual object[] ToArray();
+复制 Stack 到一个新的数组中。
+```
