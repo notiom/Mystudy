@@ -52,3 +52,37 @@ namespace InheritanceApplication
         }
     }
 }
+
+// interface接口的继承
+// 其中一个interface继承另一个interface，之后在另一个类中实现
+using System;
+
+interface IParentInterface
+{
+    void ParentInterfaceMethod();
+}
+
+interface IMyInterface : IParentInterface
+{
+    void MethodToImplement();
+}
+
+class InterfaceImplementer : IMyInterface
+{
+    static void Main()
+    {
+        InterfaceImplementer iImp = new InterfaceImplementer();
+        iImp.MethodToImplement();
+        iImp.ParentInterfaceMethod();
+    }
+
+    public void MethodToImplement()
+    {
+        Console.WriteLine("MethodToImplement() called.");
+    }
+
+    public void ParentInterfaceMethod()
+    {
+        Console.WriteLine("ParentInterfaceMethod() called.");
+    }
+}
