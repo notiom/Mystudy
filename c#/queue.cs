@@ -1,12 +1,37 @@
-public virtual void Clear();
-从 Queue 中移除所有的元素。
-2	public virtual bool Contains( object obj );
-判断某个元素是否在 Queue 中。
-3	public virtual object Dequeue();
-移除并返回在 Queue 的开头的对象。
-4	public virtual void Enqueue( object obj );
-向 Queue 的末尾添加一个对象。
-5	public virtual object[] ToArray();
-复制 Queue 到一个新的数组中。
-6	public virtual void TrimToSize();
-设置容量为 Queue 中元素的实际个数。
+// 队列
+// 注意队列中没有push元素，队列中插入元素的方法为enqueue
+using System;
+using System.Collections;
+
+namespace CollectionsApplication
+{
+   class Program
+   {
+      static void Main(string[] args)
+      {
+         Queue q = new Queue();
+
+         q.Enqueue('A');
+         q.Enqueue('M');
+         q.Enqueue('G');
+         q.Enqueue('W');
+         
+         Console.WriteLine("Current queue: ");
+         foreach (char c in q)
+            Console.Write(c + " ");
+         Console.WriteLine();
+         q.Enqueue('V');
+         q.Enqueue('H');
+         Console.WriteLine("Current queue: ");         
+         foreach (char c in q)
+            Console.Write(c + " ");
+         Console.WriteLine();
+         Console.WriteLine("Removing some values ");
+         char ch = (char)q.Dequeue();
+         Console.WriteLine("The removed value: {0}", ch);
+         ch = (char)q.Dequeue();
+         Console.WriteLine("The removed value: {0}", ch);
+         Console.ReadKey();
+      }
+   }
+}
