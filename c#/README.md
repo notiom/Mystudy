@@ -194,3 +194,50 @@ ToInt16
 
 ### var关键字
 var关键字 1.必须在局部作用域内使用 2.必须在定义时初始化 3.在整个过程中类型不会被改变
+
+### ArrayList
+```
+1	public virtual int Add( object value );
+在 ArrayList 的末尾添加一个对象。
+
+2	public virtual void AddRange( ICollection c );
+在 ArrayList 的末尾添加 ICollection 的元素。
+
+3	public virtual void Clear();
+从 ArrayList 中移除所有的元素。
+
+4	public virtual bool Contains( object item );
+判断某个元素是否在 ArrayList 中。
+
+5	public virtual ArrayList GetRange( int index, int count );
+返回一个 ArrayList，表示源 ArrayList 中元素的子集。
+
+6	public virtual int IndexOf(object);
+返回某个值在 ArrayList 中第一次出现的索引，索引从零开始。
+
+7	public virtual void Insert( int index, object value );
+在 ArrayList 的指定索引处，插入一个元素。
+
+8	public virtual void InsertRange( int index, ICollection c );
+在 ArrayList 的指定索引处，插入某个集合的元素。
+
+9	public virtual void Remove( object obj );
+从 ArrayList 中移除第一次出现的指定对象。
+
+10	public virtual void RemoveAt( int index );
+移除 ArrayList 的指定索引处的元素。
+
+11	public virtual void RemoveRange( int index, int count );
+从 ArrayList 中移除某个范围的元素。
+
+12	public virtual void Reverse();
+逆转 ArrayList 中元素的顺序。
+
+13	public virtual void SetRange( int index, ICollection c );
+复制某个集合的元素到 ArrayList 中某个范围的元素上。
+
+14	public virtual void Sort();
+对 ArrayList 中的元素进行排序。
+
+15	public virtual void TrimToSize();
+设置容量为 ArrayList 中元素的实际个数。
