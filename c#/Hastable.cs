@@ -1,10 +1,35 @@
-1	public virtual void Add( object key, object value );
-向 Hashtable 添加一个带有指定的键和值的元素。
-2	public virtual void Clear();
-从 Hashtable 中移除所有的元素。
-3	public virtual bool ContainsKey( object key );
-判断 Hashtable 是否包含指定的键。
-4	public virtual bool ContainsValue( object value );
-判断 Hashtable 是否包含指定的值。
-5	public virtual void Remove( object key );
-从 Hashtable 中移除带有指定的键的元素。
+using System;
+using System.Collections;
+
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Hashtable ht = new Hashtable();
+            ht.Add("001", "Zara Ali");
+            ht.Add("002", "Abida Rehman");
+            ht.Add("003", "Joe Holzner");
+            ht.Add("004", "Mausam Benazir Nur");
+            ht.Add("005", "M. Amlan");
+            ht.Add("006", "M. Arif");
+            ht.Add("007", "Ritesh Saikia");
+            if (ht.ContainsValue("Nuha Ali"))
+            {
+                Console.WriteLine("This student name is already in the list");
+            }
+            else
+            {
+                ht.Add("008", "Nuha Ali");
+            }
+
+            // ICollection key = ht.Keys;
+            foreach(DictionaryEntry k in ht)
+            {
+                Console.WriteLine($"Key: {k.Key}, Value: {k.Value}");
+            }
+            Console.ReadKey();
+        }
+    }
+}
