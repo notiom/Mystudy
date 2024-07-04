@@ -24,3 +24,27 @@ public:
     }
 };
 // 结论:通过
+
+//2.代码改进处理
+class Solution 
+{
+public:
+    bool canJump(vector<int>& nums) 
+    {
+        // 不断更新可以跳到的最后格子，如果这个值大于数组长度，那么表示可以跳跃成功
+        int n = nums.size();
+        int maxindex = 0;
+        for(int i = 0; i < n;i++)
+        {
+            // 如果当前索引下标大于最大能到达的距离，表示无法跳出上一格，结束
+            if(i > maxindex) return false;
+            maxindex = max(maxindex,i + nums.at(i));
+            if(maxindex >=  n - 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+//结论:时间复杂度为o(n),空间复杂度为o(1).
