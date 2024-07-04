@@ -30,3 +30,33 @@ public:
     }
 };
 //结论:通过 时间复杂度 o(n * n) ,空间复杂度o(n)
+
+// 2.官方题解
+// 思路，定义一个起点和终点
+class Solution 
+{
+public:
+    int jump(vector<int>& nums) 
+    {
+        // 定义一个开始起跳的位置和一个结束起跳的位置
+        int start = 0;
+        int end = 1;
+        int ans = 0;
+        int n = nums.size();
+
+        while(end < nums.size())
+        {
+            int maxPos = 0; //每次循环都将其置为0，因为只是想找出在当前步数中可到达的最大点
+            for(int i =start;i < end;i++)
+            {
+                maxPos = max(maxPos,i + nums.at(i));
+            }
+
+            start = end;      // 下一次起跳点范围开始的格子
+            end = maxPos + 1; // 下一次起跳点范围结束的格子
+            ans++;            // 跳跃次数
+        }
+        return ans;
+    }
+};
+//结论:通过 时间复杂度o(n) 空间复杂度o(1).
