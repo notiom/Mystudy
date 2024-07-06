@@ -67,4 +67,75 @@ public:
 // f(n)=c1 * x1^n + c2 * x2^n
 // f(1) = 1, f(2) = 2
 
-​
+​class Solution 
+{
+public:
+    int climbStairs(int n) 
+    {
+        double sqrt5 = sqrt(5);
+        // 注意该数可以取到n = 0，所以默认索引是0开始
+        double fibn = pow((1 + sqrt5) / 2, n + 1) - pow((1 - sqrt5) / 2, n + 1);
+        return (int)round(fibn / sqrt5);
+    }
+};
+// 时间复杂度 和空间复杂度都为o(1)
+
+// 5.矩阵快速幂
+typedef vector<vector<double>> Matrix;
+
+// 矩阵乘法
+Matrix multiply(Matrix &A, Matrix &B) {
+    int n = A.size();
+    Matrix C(n, vector<double>(n, 0));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            for (int k = 0; k < n; ++k) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+    return C;
+}
+
+// 计算对角矩阵 D 的 n 次方
+Matrix diagonalPower(Matrix &D, int n) {
+    Matrix res(2, vector<double>(2, 0));
+    for (int i = 0; i < 2; ++i) {
+        res[i][i] = pow(D[i][i], n);
+    }
+    return res;
+}
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        // 定义矩阵 P
+        Matrix P = {
+            { (1 + sqrt(5)) / 2, (1 - sqrt(5)) / 2 },
+            { 1, 1 }
+        };
+
+        // 定义对角矩阵 D
+        Matrix D = {
+            { (1 + sqrt(5)) / 2, 0 },
+            { 0, (1 - sqrt(5)) / 2 }
+        };
+
+        // 计算 P 的逆矩阵 P^-1
+        Matrix P_inv = {
+            { 1 / sqrt(5), -(1 - sqrt(5)) / (2 * sqrt(5)) },
+            { -1 / sqrt(5), (1 + sqrt(5)) / (2 * sqrt(5)) }
+        };
+
+        // 计算对角矩阵 D 的 n 次方
+        Matrix D_power = diagonalPower(D, n);
+
+        // 计算结果矩阵 A^n = P * D^n * P^-1
+        Matrix temp = multiply(P, D_power);
+        Matrix result = multiply(temp, P_inv);
+
+        // 返回结果矩阵中的第一个元素作为结果
+        return (int)round(result[0][0]);
+    }
+};
+// 了解方法即可，不是一种好方法
