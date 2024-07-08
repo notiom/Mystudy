@@ -15,5 +15,10 @@ namespace Drived
         {
             Console.WriteLine("Move");
         }
+
+        public void Notice()
+        {
+            Console.WriteLine("Notice");
+        }
     }
 }
