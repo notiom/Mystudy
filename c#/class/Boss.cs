@@ -27,5 +27,12 @@ namespace Drived
             // 重写
             Console.WriteLine("Boss Move");
         }
+
+        public new void Notice()
+        {
+            // 重写
+            // 使用new方法重写
+            Console.WriteLine("Boss Notice");
+        }
     }
 }
