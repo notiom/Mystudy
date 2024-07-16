@@ -50,4 +50,53 @@ public:
         return nums.back();  // 注意返回最后一个元素
     }
 };
-// 时间复杂度 o(n * logn),空间复杂度 o(1)
+// 结论:通过 时间复杂度 o(n * logn),空间复杂度 o(1)
+
+// 附录 ： 原地快速排序
+int partition(vector<int>& nums,int low,int high)
+{
+    int pivot = nums.at(high);
+    int i = (low - 1);
+
+    for(int j = low; j < high;j++)
+    {
+        if(nums.at(j) < pivot)
+        {
+            i++;
+            swap(nums.at(i), nums.at(j));
+        }
+    }
+    swap(nums.at(i + 1), nums.at(high));
+    return (i + 1);
+}
+
+void quickSort(vector<int>& nums,int low,int high)
+{
+    if(low < high)
+    {
+        int pivot = partition(nums,low,high);
+        quickSort(nums,low,pivot - 1);
+        quickSort(nums, pivot + 1, high);
+    }
+}
+// 3.官方题解
+class Solution 
+{
+public:
+    int singleNumber(vector<int>& nums) 
+    {
+        // 任何数和 0 做异或运算，结果仍然是原来的数，即 a⊕0=a。
+        // 任何数和其自身做异或运算，结果是 0，即 a⊕a=0。
+        // 异或运算满足交换律和结合律，即 a⊕b⊕a=b⊕a⊕a=b⊕(a⊕a)=b⊕0=b。
+        // 由于满足交换律，所以可以知道最后一个的元素一定会在最终异或的结果中
+        int single = 0;
+        int n = nums.size();
+        for(int i = 0;i < nums.size();i++)
+        {
+            single ^= nums.at(i);
+        }
+        return single;
+    }
+};
+// 结论:通过 异或操作太强了！ 时间复杂度o(n)
+
