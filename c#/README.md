@@ -302,3 +302,4 @@ var关键字 1.必须在局部作用域内使用 2.必须在定义时初始化 3
 6	public virtual void TrimToSize();
 设置容量为 Queue 中元素的实际个数。
 ```
+
