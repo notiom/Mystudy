@@ -22,6 +22,15 @@ namespace 泛型
             dynamic res = num1 + num2;
             return (T)res;
         }
+
+        // 泛型方法
+        public static Ty GetValue<Ty>(Ty a, Ty b)
+        {
+            dynamic num1 = a;
+            dynamic num2 = b;
+            dynamic res = num1 + num2;
+            return (Ty)res;
+        }
     }
 
     class Program
