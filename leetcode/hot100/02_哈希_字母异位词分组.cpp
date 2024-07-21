@@ -1,8 +1,10 @@
 // 1.官方题解
 // 解题思路:哈希表
-class Solution {
+class Solution 
+{
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
         unordered_map<string,vector<string>> hashmap;
         string key;
         for(string &str:strs)
@@ -17,7 +19,7 @@ public:
             output.emplace_back(it->second);
         }
         return output;
-    }
+     }
 };
 /*
 总结：掌握到的知识：
