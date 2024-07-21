@@ -1,5 +1,5 @@
-//1.官方题解
-//解题思路:哈希表
+// 1.官方题解
+// 解题思路:哈希表
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
