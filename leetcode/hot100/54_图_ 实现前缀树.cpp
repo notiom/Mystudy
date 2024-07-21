@@ -41,6 +41,7 @@ private:
 // 结论:通过
 
 // 2.使用Trie树结构
+// 相当于26叉树，头节点可以看作不存在
 class Trie 
 {
 private:
