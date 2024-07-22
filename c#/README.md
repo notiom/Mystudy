@@ -180,6 +180,10 @@ ToInt16
 移除当前 String 对象中的所有前导空白字符和后置空白字符。
 ```
 
+string格式化时间
+<br>
+yyyy-MM-dd HH:mm:ss
+<br>
 析构函数不能继承和重载
 <br>
 关键字 static 意味着类中只有一个该成员的实例。
