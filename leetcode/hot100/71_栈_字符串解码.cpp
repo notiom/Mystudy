@@ -113,3 +113,79 @@ public:
 };
 // 结论: 通过
 // 细节:index处必须使用引用传递
+
+string operator*(int n ,const string& str)
+{
+    string res;
+    for(int i = 0; i < n;i++)
+    {
+        res += str;
+    }
+    return res;
+}
+
+// 3.7.22日大彬面试题重温
+string operator*(int n ,const string& str)
+{
+    string res;
+    for(int i = 0; i < n;i++)
+    {
+        res += str;
+    }
+    return res;
+}
+
+class Solution 
+{
+public:
+    string decodeString(string& s)
+    {
+        // 定义一个栈,记录当前字符串
+        stack<string> stk; 
+        for(const char& ch : s)
+        {
+            if(isalpha(ch) || isdigit(ch) || ch == '[') 
+            {
+                // 遇到字母, 直接入栈
+                // 遇到数字也可以入栈
+                // 遇到[也可以入栈
+                stk.push(string(1, ch));
+            }
+
+            else
+            {
+                // 这种情况只有可能遇到]
+                // 出栈, 直到遇到[
+                string curstr; // 记录当前字符串
+                while(1)
+                {
+                    if(!stk.empty() && stk.top()[0] == '[')
+                    {
+                        stk.pop();
+                        break;
+                    }
+                    curstr.insert(0,stk.top());
+                    stk.pop();
+                }
+                string multiStr;
+                while (!stk.empty() && isdigit(stk.top()[0])) 
+                {
+                    multiStr = stk.top() + multiStr;
+                    stk.pop();
+                }
+                int beishu = stoi(multiStr);
+                stk.push((beishu * curstr)); //cdcdcdcd
+            } 
+        }
+        // 此时的栈大概率不为空
+        // 出栈, 直到为空
+        while(!stk.empty())
+        {
+            res.insert(0,stk.top());
+            stk.pop();
+        }
+        return res;
+    }
+private:
+    string res;
+};
