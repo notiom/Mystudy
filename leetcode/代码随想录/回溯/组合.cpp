@@ -22,6 +22,7 @@ private:
         {
             // 不需要检查，只需要从前往后，就不可能重复
             res.push_back(current);
+            return;
         }
 
         for(int i = start;i < nums.size();i++)
@@ -53,6 +54,7 @@ private:
         {
             // 不需要检查，只需要从前往后，就不可能重复
             res.push_back(current);
+            return;
         }
 
         for(int i = start;i <= n;i++)
@@ -65,3 +67,40 @@ private:
     }
 };
 // 结论:通过 间复杂度: O(n * 2^n) 空间复杂度: O(n)
+
+// 3.改进版本,进行剪枝操作
+class Solution 
+{
+public:
+    vector<vector<int>> combine(int n, int k) 
+    {
+        backtrack(k,n,1);
+        return res;
+    }
+private:
+    vector<vector<int>> res;
+    vector<int> path;
+    void backtrack(int k,int n,int start)
+    {
+        if(path.size() == k)
+        {
+            // 不需要检查，只需要从前往后，就不可能重复
+            res.push_back(path);
+            return;
+        }
+        // 进行剪枝操作
+        // 现在还需要元素k - path.size()
+        // 假设是1 2 3 4 取k = 2
+        // 即i <= n - (k - path.size())
+        // 需要加一是因为如果start = 3,那么如果i <= 2,就会错过start = 3 -> 4的遍历,所以i需要多一位
+        // i <= n - (k - path.size()) + 1
+        for(int i = start;i <= n - (k - path.size()) + 1;i++)
+        {
+            // i最大就是nums.size() - k + 1
+            path.push_back(i);
+            backtrack(k,n,i + 1);
+            path.pop_back();
+        }
+    }
+};
+// 结论:通过
