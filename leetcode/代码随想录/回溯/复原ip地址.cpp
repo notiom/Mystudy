@@ -69,3 +69,67 @@ private:
 // 结论:通过 时间复杂度O(3^4)，空间复杂度o(n).
 
 // 2.代码随想录改进版本
+class Solution 
+{
+public:
+    vector<string> restoreIpAddresses(string s) 
+    {
+        int n = s.size();
+        if(n < 4 || n > 12) return res; /// 剪枝
+        backtrack(s, 0, 0);
+        return res;
+    }
+private:
+    vector<string> res;
+    void backtrack(string s, int startIndex, int pointNum)
+    {
+        // 参数startIndex为开始的索引
+        // pointNum为已添加的逗点
+        if(pointNum == 3)
+        {
+            // 判断是否合法
+            if(isValid(s,startIndex,s.size() - 1))
+            {
+                res.push_back(s);
+            }
+            return;
+        }
+
+        for(int i = startIndex; i < s.size();i++)
+        {
+            if(isValid(s,startIndex,i))
+            {
+                s.insert(s.begin() + i + 1, '.');
+                pointNum++;
+                backtrack(s,i + 2,pointNum);
+                pointNum--;
+                s.erase(s.begin() + i + 1);
+            }
+            else
+            {
+                // 直接剪枝
+                // 若当前不满足那么后面的所有都不满足,直接退出循环
+                break;
+            }
+        }
+    }
+    bool isValid(const string s, int start, int end)
+    {
+        
+        if(start > end) return false; //
+        if(s[start] == '0' && start != end) return false; // 是否有首0元素，首0元素的特征是字符串长度大于1并且第一个元素是0
+        int digit = 0;
+        // 将数字合体
+        for(int i = start;i <= end;i++)
+        {
+            if(!isdigit(s.at(i))) return false;
+            digit = digit * 10 + (s.at(i) - '0');
+            // 判断数字大小
+            if(digit > 255) return false;
+        }
+
+        return true;
+    }
+};
+// 结论:利用startINdex变量去改变s的值
+// 循环次数限制是由isValid去判断的
