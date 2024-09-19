@@ -25,5 +25,27 @@ public class Solution
 }
 // 结论:时间复杂度为o(2 ^ n)，空间复杂度为o(N * 2 ^ n).
 
-// 2.蓝锅的解
-
+// 2.迭代法
+// 使用c#迭代法
+public class Solution 
+{
+    private IList<IList<int>> res;
+    public IList<IList<int>> Subsets(int[] nums) 
+    {
+        // 由于元素顺序不同,所以只需要顺序递归过去即可
+        res = new List<IList<int>>();
+        res.Add(new List<int>()); // 添加空集
+        foreach(int i in nums)
+        {
+            int count = res.Count;
+            for(int j = 0;j < count;j++)
+            {
+                List<int> temp = new List<int>(res[j]);
+                temp.Add(i);
+                res.Add(new List<int>(temp));
+            }
+        }
+        return res;
+    }
+}
+// 结论:通过
