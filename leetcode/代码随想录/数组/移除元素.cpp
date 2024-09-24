@@ -57,4 +57,21 @@ public:
 };
 // 结论:通过 时间复杂度o(n),空间复杂度o(1).
 
-
+// 3.随想录的解
+class Solution 
+{
+public:
+    int removeElement(vector<int>& nums, int val) 
+    {
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex < nums.size(); fastIndex++) 
+        {
+            if (val != nums[fastIndex]) 
+            {
+                // 循环快指针,如果元素不等就交换,否则就自增fastindex
+                nums[slowIndex++] = nums[fastIndex];
+            }
+        }
+        return slowIndex;
+    }
+};
