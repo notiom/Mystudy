@@ -86,6 +86,29 @@ public class Solution
         return vec.Count;
     }
 
+public class Solution 
+{
+    public int LengthOfLIS(int[] nums) 
+    {
+        // 使用贪心加二分查找算法
+        List<int> vec = new List<int>();
+        vec.Add(nums[0]);
+        int n = nums.Length;
+        for(int i = 1;i < n;i++)
+        {
+            int index = BinarySearch(vec,nums[i]);
+            if(index >= vec.Count)
+            {
+                vec.Add(nums[i]);
+            }
+            else
+            {
+                vec[index] = nums[i];
+            }
+        }
+        return vec.Count;
+    }
+
     private int BinarySearch(List<int> nums,int num)
     {
         // 返回插入位置索引的二分查找算法
@@ -94,20 +117,17 @@ public class Solution
         while(left <= right)
         {
             int mid = (left + right) >> 1;
-            if(num < nums[mid])
-            {
-                right = mid - 1;
-            }
-            else if(num > nums[mid])
+            if(num > nums[mid])
             {
                 left = mid + 1;
             }
             else
             {
-                return mid;
+                right = mid - 1;
             }
         }
         return left;
     }
+}
 }
 // 结论:时间复杂度o(n * logn).
