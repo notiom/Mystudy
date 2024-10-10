@@ -44,7 +44,7 @@ namespace MainFunc
     }
 }
 // 结论:时间复杂度和空间复杂度都为o(n).
-// 空间复杂度可以优化
+// 2.空间复杂度可以优化
 
 public class Solution 
 {
@@ -73,4 +73,22 @@ public class Solution
 }
 // 结论:空间复杂度o(1).
 
+// 3.贪心解法收集每天的正利润
+public class Solution 
+{
+      public int MaxProfit(int[] prices) 
+      {
+            // 贪心解法
+            int n = prices.Length;
+            int result = 0;
+          
+            for(int i = 1;i < n;i++)
+            {
+                result += Math.Max(prices[i] - prices[i - 1], 0);
+            }
+            // 返回值应该是不持有股票现金
+            return result;
+      }
+}
+// 结论: 通过 时间复杂度o(n),空间复杂度o(1).
   
