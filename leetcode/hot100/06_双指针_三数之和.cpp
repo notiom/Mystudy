@@ -133,3 +133,86 @@ public:
         return res;
     }
 };
+
+// 4.后续通过cs版本改进的三数之和
+// 使用剪枝和去重
+public class Solution 
+{
+    private  List<IList<int>> res = new List<IList<int>>();
+    public IList<IList<int>> ThreeSum(int[] nums) 
+    {
+        // 正常逻辑的三数之和是遍历,但是时间复杂度会超
+        // 使用双指针
+        int n = nums.Length;
+        QuickSort(nums,0,n - 1);
+        for(int i = 0;i < n - 1;i++)
+        {
+            if(nums[i] > 0) break; // 剪枝
+            if(i > 0 && nums[i] == nums[i - 1]) continue; // 对一个元素可能出现的去重
+            int left = i + 1;
+            int right = n - 1;
+
+            while(left < right)
+            {
+                int target = -nums[i];
+                
+                if(nums[left] + nums[right] == target)
+                {
+                    res.Add( new List<int> {nums[i],nums[left],nums[right]});
+                    while(left < right && nums[left] == nums[left + 1]) left++;
+                    // 对第二个元素去重
+                    while(left < right && nums[right] == nums[right - 1]) right--;
+                    // 对第三个元素去重
+                    left++;
+                    right--;
+
+                }
+                else if(nums[left] + nums[right] < target)
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
+        }
+        return res;
+    }
+
+    private void QuickSort(int []nums,int start,int end)
+    {
+        if(start < end)
+        {
+            int pivot = Partition(nums,start,end);
+            QuickSort(nums,start, pivot - 1);
+            QuickSort(nums,pivot + 1,end);
+        }
+
+    }
+
+    private int Partition(int []nums,int start,int end)
+    {
+        int height = nums[end];
+        int i = start - 1;
+
+        for(int j = start;j < end;j++)
+        {
+            if(nums[j] < height)
+            {
+                i++;
+                Swap(ref nums[i], ref nums[j]);
+            }
+        }
+        Swap(ref nums[i + 1],ref nums[end]);
+        return i + 1;
+    }
+
+    private void Swap(ref int a,ref int b)
+    {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+}
+// 通过 时间复杂度o(n * n),空间复杂度o(n).
