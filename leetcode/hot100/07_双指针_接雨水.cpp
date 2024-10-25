@@ -233,7 +233,7 @@ public:
         while(idx < n)
         {
             // 第二层循环是计算水量
-            while(!stack.empty() && height[idx] > stack.back())
+            while(!stack.empty() && height[idx] > > height[stack.back()])
             {
                 //满足该情况时才会进行括号匹配
                 int top = stack.back();
