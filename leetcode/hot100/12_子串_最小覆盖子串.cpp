@@ -127,3 +127,71 @@ public:
 	}
 
 };
+
+// 3. 10.28号更新
+// 滑动窗口的思路
+class Solution
+{
+public:
+	string minWindow(string s, string t)
+	{
+        int parentSize = s.size();
+        int sonSize = t.size();
+
+        if(parentSize < sonSize)
+            return (string)"";
+        
+        int left = 0;
+        int right = 0;
+        unordered_map<char,int> mps;
+        unordered_map<char,int> need;
+        int valid = 0;
+
+        // 避免超时
+        int startIndex = -1;
+        int minLen = -1;
+
+        for(int i = 0;i < sonSize;i++)
+        {
+            need[t[i]]++;
+        }
+
+        while(right < parentSize)
+        {
+            // 控制右边不出边界
+            if(need.count(s[right]))
+            {
+                mps[s[right]]++;
+                // 如果该值在need中存在
+                // 就需要看是否在mps中也存在并且个数是否相等
+                if(mps[s[right]] == need[s[right]])
+                {
+                    valid++;
+                }
+            }
+
+            while(right - left >= sonSize - 1 && valid == need.size())
+            {
+                // 说明此时有符合条件的字串了
+                // 收缩左边界
+                if(right - left + 1 < minLen || minLen == -1)
+                {
+                    minLen = right - left + 1;
+                    startIndex = left;
+                }
+
+                if(need.count(s[left]))
+                {
+                    if(need[s[left]] == mps[s[left]])
+                    {
+                        valid--;
+                    }
+                }
+                mps[s[left]]--;
+                left++;      
+            }
+            right++;
+        }
+        return minLen == -1 ? (string)"" : s.substr(startIndex,minLen);
+    }
+};
