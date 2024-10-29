@@ -150,3 +150,46 @@ private:
         return num1.at(0) < num2.at(0);
     }
 };
+
+// 4.cs 10.29日版本
+public class Solution 
+{
+    public int[][] Merge(int[][] intervals) 
+    {
+        // 按第一个元素升序排列5_5
+        Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+
+        int m = intervals.Length;
+        // 创建新的数组
+        List<int[]> res = new List<int[]> {new int[] {intervals[0][0],intervals[0][1]}};
+
+        int left = 0; // res结果中要比较的第几个元素
+        // 不遍历到下一个元素
+        for(int i = 1;i < m; i++)
+        {
+            // 有两种重叠的情况
+            // [1,7] [2,6] 7 > 6 && 1 < 6 || 
+            // [1,5] [2,6] 6 > 5 && 2 < 5
+            if(res[left][1] >= intervals[i][1] &&
+            res[left][0] <= intervals[i][1])
+            {
+                // 合并该情况的两种区间
+                // res结果不变,继续和下一个元素进行比较
+                continue;
+            }
+
+            else if(res[left][1] <= intervals[i][1] &&
+            res[left][1] >= intervals[i][0])
+            {
+                // 合并2情况的区间
+                res[left][1] = intervals[i][1];
+                continue;
+            }
+
+            // 如果都不满足,扩充数组元素
+            res.Add(new int[] {intervals[i][0],intervals[i][1]});
+            left++;
+        }
+        return res.ToArray();
+    }
+}
