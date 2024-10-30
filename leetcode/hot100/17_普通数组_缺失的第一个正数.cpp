@@ -69,32 +69,48 @@ public:
     }
 };
 //结论：排序使用的时间复杂度为nlog(n),不符合题目要求
-//3.官方题解
-// author:rmokerone
-#include <iostream>
-#include <vector>
 
-using namespace std;
-
-class Solution {
+// 3.官方题解
+// 原地哈希
+class Solution 
+{
 public:
-    int firstMissingPositive(vector<int> &nums) {
-        for (int i = 0; i < nums.size(); i++) {
-            while (nums[i] != i + 1) {
-                if (nums[i] <= 0 || nums[i] > nums.size() || nums[i] == nums[nums[i] - 1])
+    int firstMissingPositive(vector<int> &nums) 
+    {
+        // 原地哈希
+        // 使用nums数组作哈希表
+        // 应该是元素的位置对应与索引0 -> 1
+        // 1 -> 2
+
+        int n = nums.size();
+        for(int i = 0;i < n;i++)
+        {
+            // 该大循环结束后每个位置都对应该有的元素
+            // 只要不等于,就直接返回
+            while(nums[i] != i + 1)
+            {
+                if(nums[i] <= 0 || nums[i] > nums.size() || nums[i] == nums[nums[i] - 1])
+                {
+                    // 条件1.不应该有小于等于0的数
+                    // 条件2. 不应该有大于元素容量的数
+                    // 条件3. 去除重复元素,即当前元素等于他对应位置索引的数
+                    // 比如2 = nums[1] = 2
                     break;
-                // 将nums[i] 放置到对应位置上[1,2,3...]
+                }
                 int idx = nums[i] - 1;
                 nums[i] = nums[idx];
                 nums[idx] = idx + 1;
             }
         }
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] != (i + 1)) {
-                return (i + 1);
+
+        for(int i = 0;i < n;i++)
+        {
+            if(nums[i] != i + 1)
+            {
+                return i + 1;
             }
         }
-        return (nums.size() + 1);
+        return n + 1; // 每个元素都存在应该返回n + 1
     }
 };
-//原地哈希，暂时未理解
+// 通过 时间复杂度o(n),和空间复杂度o(1).
