@@ -181,3 +181,47 @@ private:
     }
 };
 //结论：链表递归很方便
+
+//4. 11.4号新递归方案
+class Solution 
+{
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        return addTwoNumbersHelper(l1,l2,0);
+    }
+
+    ListNode* addTwoNumbersHelper(ListNode* l1, ListNode* l2,int flag)
+    {
+        // 除了两个链子之外,还需要传入是否进位
+        // 使用链子1当作最后返回的链子
+        if(!l1 && !l2 )
+        {
+            return flag == 1 ? new ListNode(1) : nullptr;
+        }
+
+        if(!l1)
+        {
+            // 如果l1的长度不如l2
+            // 给l1补长度
+            l1 = new ListNode(0);
+        }
+
+        if(!l2)
+        {
+            l2 = new ListNode(0);
+        }
+
+        if(l1->val + l2->val + flag >= 10)
+        {
+            l1->val = l1->val + l2->val + flag - 10;
+            // 要进位
+            l1->next = addTwoNumbersHelper(l1->next,l2->next,1);
+            return l1;
+        }
+        l1->val = l1->val + l2->val + flag;
+        // 不进位
+        l1->next = addTwoNumbersHelper(l1->next,l2->next,0);
+        return l1;
+    }
+};
