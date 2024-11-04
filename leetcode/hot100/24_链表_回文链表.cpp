@@ -65,28 +65,39 @@ public:
 };
 //结论时间复杂度o(n)和空间复杂度
 o(n)									
-	//3.递归比较最后一个和第一个，递归是从函数的最后一层逐层向上比较
-class Solution {
-    ListNode* frontPointer;
+	
+//3.递归比较最后一个和第一个，递归是从函数的最后一层逐层向上比较
+class Solution 
+{
 public:
-    bool recursivelyCheck(ListNode* currentNode) {
-        if (currentNode != nullptr) {
-            if (!recursivelyCheck(currentNode->next)) {
+    ListNode* frontPointer;
+    bool isPalindrome(ListNode* head) 
+    {
+        // 使用递归比较最后一个元素的值和当前值是否相同
+        frontPointer = head;
+        return recursivelyCheck(head);
+    }
+
+    bool recursivelyCheck(ListNode* currentNode)
+    {
+        if(currentNode != nullptr)
+        {
+            if(!recursivelyCheck(currentNode->next))
+            {
                 return false;
             }
-            if (currentNode->val != frontPointer->val) {
+
+            if(currentNode->val != frontPointer->val)
+            {
+                // 能执行到这里时已经时最后一个元素了
                 return false;
             }
-            //该循环只要有一个返回false程序会一直返回false直到结束
+
             frontPointer = frontPointer->next;
         }
         return true;
     }
-
-    bool isPalindrome(ListNode* head) {
-        frontPointer = head;
-        return recursivelyCheck(head);
-}；
+};
 	
 //4.快慢指针
 //思路，找到最中间的位置，将后半部分反转，之后再比较它们的值，但是我自己的思路无法将其链表复原
