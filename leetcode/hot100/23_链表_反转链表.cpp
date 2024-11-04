@@ -65,3 +65,27 @@ public:
     }
 };
 //结论：通过，时间降低
+
+// 3.使用递归翻转链表
+class Solution 
+{
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+        // 尝试使用递归翻转链表
+        return reverseListHelper(head,nullptr);
+
+    }
+
+    ListNode* reverseListHelper(ListNode* head,ListNode* pre)
+    {
+        if(head == nullptr)
+        {
+            // 当最后一个元素为空时,就返回他的结果就好
+            return pre;
+        }
+        ListNode* next = head->next;
+        head->next = pre;
+        return reverseListHelper(next,head);
+    }
+};
