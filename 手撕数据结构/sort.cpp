@@ -212,9 +212,7 @@ public:
 		}
 		PrintResult();
 	}
-
-
-
+		
 private:
 	void PrintResult()
 	{
